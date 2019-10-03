@@ -29,11 +29,11 @@ FILE* fileManager(){
     }
     
 
-    if ( arquivo == NULL ) { //A diretiva NULL em letras maiusculas,é quando a pontar para o espaço da memoria NULO,ou NULL,caso o arquivo não exista
-        perror("Desculpe! "); //<-importante para saber que tipo de erro tivemos ao tentar abrir
+    if ( arquivo == NULL ) { // NULL em letras maiusculas é quando o ponteiro aponta para um espaço de memoria nulo
+        perror("Desculpe! Arquivo não encontrado "); //<-importante para saber que tipo de erro tivemos ao tentar abrir
         
         //fazemos uma pausa
-        printf("\nPulse uma tecla para continuar...");
+        printf("\nPressione uma tecla para continuar...");
         scanf("%*c");
         
         //como nao conseguimos abrir o arquivo retornamos NULL
@@ -54,13 +54,13 @@ void finalizar ( FILE *arquivo ) { //arquivo é fechado
 
 //////MAIN////////
 int main() {
-    FILE* arquivo = fileManager(); //a variavel arquivo recebe o ponteiro ao arquivo.
+    FILE* arquivo = fileManager(); //a variavel arquivo recebe o ponteiro do arquivo.
 
     if( arquivo == NULL ){
-        return 1; // sE o programa retornar 1 é por que nao abriU o arquivo
+        return 1; // se o programa retornar 1 é por que nao abriu o arquivo
     }
 
 
-    finalizar(arquivo); // sE passou pela comprovaçao anterior é preciso fechar o arquivo antes de sair ja que nao vamos fazer mais nada.
+    finalizar(arquivo); // se passou pela comprovaçao anterior é preciso fechar o arquivo antes de sair ja que nao vamos fazer mais nada.
     return 0;
 }//FIM MAIN
