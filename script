@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <ctype.h>   // para tolower (converter letras maiusculas em minusculas)
+
+
+FILE* fileManager(){
+    FILE* arquivo;
+    char modo;  //opção
+    char* nomeArquivo = "prova.txt";
+    
+    printf("Escolha um modo para abrir o arquivo \n\nG-Escrita \nL-Leitura \nA-Anexar \n\n?: ");
+    scanf("%c%*c", &modo);
+    modo = tolower(modo);  
+    
+    switch ( modo ) { //Verifica o modo
+        case 'g':
+            //G - É para gravar parametro
+            arquivo = fopen ( nomeArquivo, "wt" ); //Só permite escrever no arquivo
+            break;
+            
+        case 'l':
+            //l - É para leitura  do texto
+            arquivo = fopen ( nomeArquivo, "r" ); //modo leitura
+            break;
+            
+        case 'a':
+            //A- É para append(anexação)
+            arquivo = fopen ( nomeArquivo, "a" ); //Modo Anexar só permite escrever ao fim do arquivo
+            break;
+    }
+    
+
+    if ( arquivo == NULL ) { //A diretiva NULL em letras maiusculas,é quando a pontar para o espaço da memoria NULO,ou NULL,caso o arquivo não exista
+        perror("Desculpe! "); //<-importante para saber que tipo de erro tivemos ao tentar abrir
+        
+        //fazemos uma pausa
+        printf("\nPulse uma tecla para continuar...");
+        scanf("%*c");
+        
+        //como nao conseguimos abrir o arquivo retornamos NULL
+        return NULL;
+    }else{  
+        //Se conseguir abrir o arquivo
+        printf("O arquivo %s esta aberto em modo %s\n", nomeArquivo, (modo=='g')? "gravação.":(modo=='a')? "anexão.": "leitura."  );
+    }
+    
+    
+    return arquivo;
+}//FIM fileManager
+
+void finalizar ( FILE *arquivo ) { //arquivo é fechado
+    fclose ( arquivo );
+}
+
+
+//////MAIN////////
+int main() {
+    FILE* arquivo = fileManager(); //a variavel arquivo recebe o ponteiro ao arquivo.
+
+    if( arquivo == NULL ){
+        return 1; // sE o programa retornar 1 é por que nao abriU o arquivo
+    }
+
+
+    finalizar(arquivo); // sE passou pela comprovaçao anterior é preciso fechar o arquivo antes de sair ja que nao vamos fazer mais nada.
+    return 0;
+}//FIM MAIN
